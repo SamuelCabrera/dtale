@@ -2150,6 +2150,18 @@ def get_column_analysis(data_id):
     )
 
 
+@dtale.route("/duplicates/<data_id>")
+@exception_decorator
+def get_duplicates(data_id):
+    curr_settings = global_state.get_settings(data_id) or {}
+    query = build_query(data_id, curr_settings.get("query"))
+    data = run_query(
+        global_state.get_data(data_id),
+        query,
+        global_state.get_context_variables(data_id),
+    )
+
+
 @dtale.route("/correlations/<data_id>")
 @exception_decorator
 def get_correlations(data_id):
